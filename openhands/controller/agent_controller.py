@@ -694,6 +694,9 @@ class AgentController:
                     if self.state.history:
                         self.state.start_id = self.state.history[0].id
                     # Don't add error event - let the agent retry with reduced context
+                    
+                    # Adding state handling here to prevent infinite loop
+                    await self._react_to_exception(e)
                     return
                 raise
 
